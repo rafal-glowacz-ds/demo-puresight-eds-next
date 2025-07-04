@@ -26,8 +26,9 @@ jobs:
       - name: Run sync with StreamX
         uses: rafal-glowacz-ds/streamx-github-action@main
         with:
-          action: ${{github.event_name}}
+          action: "webresource_${{github.event_name}}"
           github-event: ${{ toJSON(github.event) }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           streamx-token: ${{ secrets.STREAMX_TOKEN }}
           streamx-ingestion-base-url: ${{ vars.STREAMX_INGESTION_BASE_URL }}
+          streamx-ingestion-webresource-includes: ${{ vars.STREAMX_INGESTION_WEBRESOURCE_INCLUDES }}
