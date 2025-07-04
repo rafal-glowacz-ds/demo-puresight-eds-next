@@ -22,7 +22,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: $((${{ github.event.pull_request.commits }} + 1))
+          fetch-depth: 0
       - name: Run sync with StreamX
         uses: rafal-glowacz-ds/streamx-github-action@main
         with:
