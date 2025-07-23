@@ -24,7 +24,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Run sync with StreamX
-        uses: streamx-dev/streamx-connector-github@0.0.1
+        uses: rafal-glowacz-ds/streamx-common-github-actions/.github/actions/connector-github@main
         with:
           action: "webresource_${{github.event_name}}"
           github-event: ${{ toJSON(github.event) }}
