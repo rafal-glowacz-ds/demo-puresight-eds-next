@@ -28,7 +28,7 @@ jobs:
         with:
           action: "webresource_${{github.event_name}}"
           github-event: ${{ toJSON(github.event) }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.RG_GITHUB_TOKEN }}
           streamx-token: ${{ secrets.STREAMX_INGESTION_TOKEN }}
           streamx-ingestion-base-url: ${{ vars.STREAMX_INGESTION_URL }}
           streamx-ingestion-webresource-includes: ${{ vars.STREAMX_INGESTION_WEBRESOURCE_INCLUDES }}
