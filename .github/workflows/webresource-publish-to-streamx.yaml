@@ -33,6 +33,7 @@ jobs:
           include-patterns: ${{ vars.STREAMX_INGESTION_INCLUDES }}
           ingestion-token: ${{ secrets.STREAMX_INGESTION_TOKEN }}
           ingestion-url: ${{ vars.STREAMX_INGESTION_URL }}
+          github-token: ${{ secrets.ACTION_GITHUB_TOKEN }}
 
   sync-all-with-streamx:
     if: github.event_name == 'workflow_dispatch' && inputs.publish_all_webresources == true
@@ -52,3 +53,4 @@ jobs:
           include-patterns: ${{ vars.STREAMX_INGESTION_INCLUDES }}
           streamx-ingestion-token: ${{ secrets.STREAMX_INGESTION_TOKEN }}
           streamx-ingestion-url: ${{ vars.STREAMX_INGESTION_URL }}
+          github-token: ${{ secrets.ACTION_GITHUB_TOKEN }}
