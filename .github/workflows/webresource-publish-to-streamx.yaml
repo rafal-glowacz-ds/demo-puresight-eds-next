@@ -15,8 +15,8 @@ on:
       - main
 
 jobs:
-  sync-with-streamx:
-    if: github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && inputs.publish_all_webresources == true)
+  sync-pr-with-streamx:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -26,9 +26,29 @@ jobs:
       - name: Run sync with StreamX
         uses: rafal-glowacz-ds/streamx-common-github-actions/.github/actions/connector-github@main
         with:
-          action: "webresource_${{github.event_name}}"
-#           github-event: ${{ toJSON(github.event) }}
-          github-token: ${{ secrets.ACTION_GITHUB_TOKEN }}
-          streamx-token: ${{ secrets.STREAMX_INGESTION_TOKEN }}
+          action: sync
+          channel: web-resources
+          source-provider: PullRequestDiffSourceProvider
+          type: 'web-resource/static'
+          include-patterns: ${{ vars.STREAMX_INGESTION_INCLUDES }}
+          ingestion-token: ${{ secrets.STREAMX_INGESTION_TOKEN }}
+          ingestion-url: ${{ vars.STREAMX_INGESTION_URL }}
+
+  sync-all-with-streamx:
+    if: github.event_name == 'workflow_dispatch' && inputs.publish_all_webresources == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run full sync with StreamX
+        uses: rafal-glowacz-ds/streamx-common-github-actions/.github/actions/connector-github@main
+        with:
+          action: publish
+          channel: web-resources
+          source-provider: BatchSourceProvider
+          workspace: ${{ github.workspace }}
+          type: 'web-resource/static'
+          include-patterns: ${{ vars.STREAMX_INGESTION_INCLUDES }}
+          streamx-ingestion-token: ${{ secrets.STREAMX_INGESTION_TOKEN }}
           streamx-ingestion-url: ${{ vars.STREAMX_INGESTION_URL }}
-          streamx-ingestion-webresource-includes: ${{ vars.STREAMX_INGESTION_WEBRESOURCE_INCLUDES }}
