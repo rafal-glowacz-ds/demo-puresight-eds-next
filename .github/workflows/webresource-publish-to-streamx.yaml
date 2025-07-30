@@ -55,4 +55,3 @@ jobs:
           streamx-ingestion-token: ${{ secrets.STREAMX_INGESTION_TOKEN }}
           streamx-ingestion-url: ${{ vars.STREAMX_INGESTION_URL }}
           github-token: ${{ secrets.ACTION_GITHUB_TOKEN }}
-          debug-enabled: false
